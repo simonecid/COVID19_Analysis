@@ -5,7 +5,8 @@ import dateutil
 import numpy as np
 import os
 
-os.mkdir("plots")
+if not os.path.isdir("plots"):
+  os.mkdir("plots")
 
 df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
 df["data"] = pd.to_datetime(df["data"]).dt.date

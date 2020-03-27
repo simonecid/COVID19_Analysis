@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import sys
 import dateutil
 import numpy as np
+import os
+
+if not os.path.isdir("plots"):
+  os.mkdir("plots")
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
