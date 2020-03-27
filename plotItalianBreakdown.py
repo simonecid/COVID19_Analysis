@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import sys
 import dateutil
 import numpy as np
+import os
+
+os.mkdir("plots")
 
 df = pd.read_csv("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv")
 df["data"] = pd.to_datetime(df["data"]).dt.date
@@ -16,13 +19,13 @@ ax.grid(axis="y")
 ax.set_title("Italian tests breakdown")
 ax.set_ylabel("# tests")
 ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths", "Negatives"])
-plt.savefig("Italy_FullBreakdown_EN.png")
+plt.savefig("plots/Italy_FullBreakdown_EN.png")
 
 
 ax.set_title("Casistica dei tamponi in Italia")
 ax.set_ylabel("# tamponi")
 ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti", "Negativi"])
-plt.savefig("Italy_FullBreakdown_IT.png")
+plt.savefig("plots/Italy_FullBreakdown_IT.png")
 
 df_breakdown = df[["data", "terapia_intensiva", "ricoverati_con_sintomi", "isolamento_domiciliare","dimessi_guariti", "deceduti"]]
 ax = df_breakdown.set_index("data").plot.bar(stacked=True)
@@ -31,12 +34,12 @@ ax.grid(axis="y")
 ax.set_title("Italian tests breakdown (excluding negatives)")
 ax.set_ylabel("# tests")
 ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths", "Negatives"])
-plt.savefig("Italy_Breakdown_EN.png")
+plt.savefig("plots/Italy_Breakdown_EN.png")
 
 ax.set_title("Casistica dei tamponi in Italia (eccetto negativi)")
 ax.set_ylabel("# tamponi")
 ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti", "Negativi"])
-plt.savefig("Italy_Breakdown_IT.png")
+plt.savefig("plots/Italy_Breakdown_IT.png")
 
 df_relative = df[["data","tamponi", "terapia_intensiva", "ricoverati_con_sintomi", "isolamento_domiciliare","dimessi_guariti", "deceduti"]]
 df_relative["terapia_intensiva"] = df_relative["terapia_intensiva"]/df_relative["tamponi"]
@@ -51,9 +54,9 @@ ax.grid(axis="y")
 ax.set_title("Italian tests breakdown relative to total number of tests")
 ax.set_ylabel("Fraction w.r.t. total tests")
 ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths"])
-plt.savefig("Italy_Breakdown_Relative_EN.png")
+plt.savefig("plots/Italy_Breakdown_Relative_EN.png")
 
 ax.set_title("Casistica percentuale dei tamponi in Italia")
 ax.set_ylabel("Frazione dei tamponi totali")
 ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti"])
-plt.savefig("Italy_Breakdown_Relative_IT.png")
+plt.savefig("plots/Italy_Breakdown_Relative_IT.png")

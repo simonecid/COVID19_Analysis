@@ -23,15 +23,7 @@ ax.legend(province)
 ax.set_ylabel("# tamponi")
 ax.grid()
 plt.xticks(rotation=90)
-fig.savefig("Italy_ProvinceComparison_IT.png")
+fig.savefig("plots/Italy_ProvinceComparison_IT.png")
 
 ax.set_ylabel("# tests")
-fig.savefig("Italy_ProvinceComparison_EN.png")
-
-# ax = df_filtered.set_index("data").plot.bar(stacked=True)
-# ax.grid(axis="y")
-
-# ax.grid(axis="y")
-
-# ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths", "Negatives"])
-# plt.savefig("Italy_Breakdown_EN.png")
+fig.savefig("plots/Italy_ProvinceComparison_EN.png")
