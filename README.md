@@ -4,13 +4,13 @@
 
 Estrae automaticamente dati del COVID19 dal repository ufficiale della [Protezione Civile](https://github.com/pcm-dpc/COVID-19) e [John Hopkins](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data) e crea dei grafici.
 
-[I grafici piu' recenti sono disponibili sulla wiki; si aggiorna automaticamente ogni giorno alle 20, ora italiana.](https://github.com/simonecid/COVID19_Analysis/wiki)
+[I grafici piu' recenti sono disponibili sulla wiki; si aggiorna automaticamente ogni ora.](https://github.com/simonecid/COVID19_Analysis/wiki)
 
 # COVID 19 Plotting tools
 
 Automatically pulls COVID19 data from the official [Italian](https://github.com/pcm-dpc/COVID-19) and [John Hopkins](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data) repository and plots it.
 
-[Latest plots are available on the Wiki; updates daily at 8PM, Rome time.](https://github.com/simonecid/COVID19_Analysis/wiki)
+[Latest plots are available on the Wiki; updates hourly.](https://github.com/simonecid/COVID19_Analysis/wiki)
 
 ## Usage
 

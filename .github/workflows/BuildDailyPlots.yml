@@ -7,7 +7,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: 00 19 * * *
+    - cron: 00 * * * *
 
 
 jobs:
