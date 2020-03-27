@@ -43,10 +43,13 @@ jobs:
     
     - name: Commit files
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -f plots/*.png
-        git commit -m "Add changes"
+        number=`git status -s plots | wc -l`
+        if [ $number != 0 ] ; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f plots/*.png
+          git commit -m "Add changes"
+        fi
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
