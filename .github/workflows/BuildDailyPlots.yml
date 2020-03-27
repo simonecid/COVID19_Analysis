@@ -24,8 +24,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install matplotlib numpy pandas
-    - name: Build plots
+    - name: Build italian plots
       run: |
         python plotItalianBreakdown.py
+    - name: Build province plots
+      run: |
         python plotProvinceData.py
+    - name: Build regional plots
+      run: |
         python plotRegionBreakdown.py
