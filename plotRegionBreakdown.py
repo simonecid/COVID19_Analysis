@@ -99,10 +99,10 @@ for index, df_region in enumerate(df_regions):
   ax.set_ylabel("Fraction w.r.t. total tests")
   ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths"])
   ax.grid(axis="y")
-  fig.savefig("plots/" + region + "_Breakdown_Relative_EN.png")
+  fig.savefig("plots/" + region.replace(" ", "") + "_Breakdown_Relative_EN.png")
   
   ax.set_title("Casistica percentuale dei tamponi in " + region)
   ax.set_ylabel("Frazione dei tamponi totali")
   ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti"])
   ax.grid(axis="y")
-  fig.savefig("plots/" + region + "_Breakdown_Relative_IT.png")
+  fig.savefig("plots/" + region.replace(" ", "") + "_Breakdown_Relative_IT.png")
