@@ -57,11 +57,11 @@ for index, df_country in enumerate(df_countries):
   ax_country.set_ylabel("# cases")
   ax_country.legend(["Active", "Recovered", "Deaths"], loc="upper left")
   ax_country.grid(axis="y")
-  fig_country.savefig("plots/" + country + "_Cases_EN.png")
+  fig_country.savefig("plots/" + country.replace(" ", "") + "_Cases_EN.png")
 
   ax_country.set_title("Casi in " + country)
   ax_country.set_ylabel("# casi")
   ax_country.legend(["Positivi", "Guariti", "Morti"], loc="upper left")
   ax_country.grid(axis="y")
-  fig_country.savefig("plots/" + country + "_Cases_IT.png")
+  fig_country.savefig("plots/" + country.replace(" ", "") + "_Cases_IT.png")
 
