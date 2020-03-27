@@ -1,6 +1,6 @@
 # COVID 19 Plotting tools
 
-Automatically pulls COVID19 data from the official [Italian repository](https://github.com/pcm-dpc/COVID-19) and plots it.\
+Automatically pulls COVID19 data from the official [Italian](https://github.com/pcm-dpc/COVID-19) and [John Hopkins](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data) repository and plots it.\
 Requires Pandas, Numpy and Matplotlib to be installed.
 
 ## Usage
