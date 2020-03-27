@@ -28,12 +28,18 @@ jobs:
     - name: Build italian plots
       run: |
         python plotItalianBreakdown.py
-    - name: Build province plots
+    - name: Build italian province plots
       run: |
         python plotProvinceData.py
-    - name: Build regional plots
+    - name: Build italian regional plots
       run: |
         python plotRegionBreakdown.py
+    - name: Build country breakdown plots
+      run: |
+        python plotCountryBreakdown.py
+    - name: Build country comparison plots
+      run: |
+        python plotCountryComparison.py
     
     - name: Commit files
       run: |
