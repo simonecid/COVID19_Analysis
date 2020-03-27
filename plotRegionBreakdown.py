@@ -40,13 +40,13 @@ for index, df_region in enumerate(df_regions):
   ax.set_title(region + " tests breakdown")
   ax.set_ylabel("# tests")
   ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths", "Negatives"])
-  ax.grid()
+  ax.grid(axis="y")
   fig.savefig("plots/" + region + "_FullBreakdown_EN.png")
 
   ax.set_title("Casistica dei tamponi in " + region)
   ax.set_ylabel("# tamponi")
   ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti", "Negativi"])
-  ax.grid()
+  ax.grid(axis="y")
   fig.savefig("plots/" + region + "_FullBreakdown_IT.png")
 
 
@@ -67,13 +67,13 @@ for index, df_region in enumerate(df_regions):
   ax.set_title(region + " tests breakdown (excluding negatives)")
   ax.set_ylabel("# tests")
   ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths", "Negatives"])
-  ax.grid()
+  ax.grid(axis="y")
   fig.savefig("plots/" + region + "_Breakdown_EN.png")
 
   ax.set_title("Casistica dei tamponi in " + region + " (eccetto negativi)")
   ax.set_ylabel("# tamponi")
   ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti", "Negativi"])
-  ax.grid()
+  ax.grid(axis="y")
   fig.savefig("plots/" + region + "_Breakdown_IT.png")
 
   fig = plt.figure()
@@ -98,11 +98,11 @@ for index, df_region in enumerate(df_regions):
   ax.set_title(region + " tests breakdown relative to total number of tests")
   ax.set_ylabel("Fraction w.r.t. total tests")
   ax.legend(["ICU cases", "Hospitalised w/ symptoms", "Quarantined at home", "Recoveries", "Deaths"])
-  ax.grid()
+  ax.grid(axis="y")
   fig.savefig("plots/" + region + "_Breakdown_Relative_EN.png")
   
   ax.set_title("Casistica percentuale dei tamponi in " + region)
   ax.set_ylabel("Frazione dei tamponi totali")
   ax.legend(["Terapia intensiva", "Ricoverati con sintomi", "Isolamento domiciliare", "Guariti", "Morti"])
-  ax.grid()
+  ax.grid(axis="y")
   fig.savefig("plots/" + region + "_Breakdown_Relative_IT.png")
