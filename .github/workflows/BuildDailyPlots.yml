@@ -35,13 +35,14 @@ jobs:
       run: |
         python plotRegionBreakdown.py
     
-    - name: Upload plots to Wiki
-      uses: docker://decathlon/wiki-page-creator-action:2.0.1
-      env:
-        GH_PAT: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
-        ACTION_MAIL: smnbologna@gmail.com
-        ACTION_NAME: simonecid
-        OWNER: simonecid
-        REPO_NAME: COVID19_Analysis
-        MD_FOLDER: plots
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add plots/
+        git commit -m "Add changes"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
 
