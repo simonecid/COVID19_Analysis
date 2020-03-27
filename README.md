@@ -1,6 +1,7 @@
 # COVID 19 Plotting tools
 
-Requires Pandas, Numpy and Matplotlib to be installed
+Automatically pulls COVID19 data from the official [Italian repository](https://github.com/pcm-dpc/COVID-19) and plots it.
+Requires Pandas, Numpy and Matplotlib to be installed.
 
 ## Usage
 
