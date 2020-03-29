@@ -42,7 +42,7 @@ jobs:
         python plotCountryComparison.py
     - name: Build daily breakdowns
       run: |
-        python plotCountryIncreaseBreakdown.py.py
+        python plotCountryIncreaseBreakdown.py
     
     - name: Commit files
       run: |
