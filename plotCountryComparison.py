@@ -25,7 +25,7 @@ for category in categories:
   
   for index, country in enumerate(countries):
 
-    df_country_selected = df_country[["daste", category]]
+    df_country_selected = df_countries[index][["date", category]]
     ax_category.plot(df_country_selected.date, df_country_selected[category])
     
   ax_category.xaxis_date()
