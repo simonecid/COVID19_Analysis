@@ -15,9 +15,7 @@ countries = ["China", "Italy", "United Kingdom"]
 
 categories = ["active", "confirmed", "recovered"]
 
-df_merged = getJohnHopkinsCOVIDData(countries)
-
-df_countries = [df_merged[df_merged["Country/Region"] == country] for country in countries]
+df_countries = getJohnHopkinsCOVIDData(countries)
 
 
 for category in categories:
@@ -27,8 +25,7 @@ for category in categories:
   
   for index, country in enumerate(countries):
 
-    df_country = df_countries[index].sort_values(by="date")
-    df_country_selected = df_country[["date", category]]
+    df_country_selected = df_country[["daste", category]]
     ax_category.plot(df_country_selected.date, df_country_selected[category])
     
   ax_category.xaxis_date()

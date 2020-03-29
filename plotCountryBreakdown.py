@@ -18,9 +18,7 @@ ax = fig.add_subplot(1, 1, 1)
 
 countries = ["China", "Italy", "United Kingdom"]
 
-df_merged = getJohnHopkinsCOVIDData(countries)
-
-df_countries = [df_merged[df_merged["Country/Region"] == country] for country in countries]
+df_countries = getJohnHopkinsCOVIDData(countries)
 
 for index, df_country in enumerate(df_countries):
   
@@ -28,7 +26,6 @@ for index, df_country in enumerate(df_countries):
   ax_country = fig_country.add_subplot(1, 1, 1)
 
   country = countries[index]
-  df_country = df_country.sort_values(by="date")
   df_country_selected = df_country[["date", "active", "recovered", "deaths"]]
   ax_country.bar(df_country_selected.date, df_country_selected.active)
   ax_country.bar(df_country_selected.date, df_country_selected.recovered, bottom=df_country_selected.active)

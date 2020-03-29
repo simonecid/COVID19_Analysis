@@ -21,4 +21,11 @@ def getJohnHopkinsCOVIDData(countries=None):
   df_merged["active"] = df_merged["confirmed"] - df_merged["recovered"] - df_merged["deaths"]
   df_merged["date"] = pd.to_datetime(df_merged["date"])
 
-  return df_merged
+  # creating a list of country-level data frames sorted by date
+  if countries is not None:
+    df_countries = [df_merged[df_merged["Country/Region"] == country].sort_values(by="date") for country in countries]
+  else: 
+    df_countries = [df_merged.sort_values(by="date")]
+
+
+  return df_countries
