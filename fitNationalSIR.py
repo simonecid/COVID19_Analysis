@@ -126,7 +126,6 @@ for index, (df, country, day_offset, x0) in enumerate(zip(df_countries, countrie
   red_chi2 = sir.red_chi2
 
   textstr = '\n'.join((
-      r'MODEL PARAMETERS:  ',
       r'$N=%.f$' % (N),
       r'$\beta=%.3f \pm %.3f$' % (popt[0], np.sqrt(pcov[0][0])),
       r'$\gamma=%.3f \pm %.3f$' % (popt[1], np.sqrt(pcov[1][1])),
@@ -150,29 +149,54 @@ for index, (df, country, day_offset, x0) in enumerate(zip(df_countries, countrie
   ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
   ax.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
 
-  ax.plot(df["date"], infected, 'ro', label='Data on positives')
-  ax.plot(df["date"], removed, 'gx', label='Data on removed')
-  ax.plot(t, sir.S, 'b', alpha=0.5, lw=2, label='Susceptible')
-  ax.plot(t, sir.I, 'r', alpha=0.5, lw=2, label='Infected')
-  ax.plot(t, sir.R, 'g', alpha=0.5, lw=2, label='Removed')
+  ax.plot(df["date"], infected, 'ro')
+  ax.plot(df["date"], removed, 'gx')
+  ax.plot(t, sir.S, 'b', alpha=0.5, lw=2)
+  ax.plot(t, sir.I, 'r', alpha=0.5, lw=2)
+  ax.plot(t, sir.R, 'g', alpha=0.5, lw=2)
 
-  ax.set_title('COVID-19 - ' + country)
-  ax.set_xlabel('Number of days')
-  ax.set_ylabel('Number of people')
 
   props = dict(boxstyle='round', edgecolor='0.7', facecolor='white', alpha=0.7)
   ax.text(0.676, 0.5, textstr, transform=ax.transAxes, fontsize=10,
           verticalalignment='top', bbox=props)
+  ax.grid(b=True, which='major', ls='-')
 
-  ax.annotate("EPIDEMIC PEAK\nInfected = " + str(int(y_max)) + "\non " + peak_day_str,
+  ax.set_title('COVID-19 - ' + country)
+  ax.set_ylabel('Number of people')
+  annotation = ax.annotate("EPIDEMIC PEAK\nInfected = " + str(int(y_max)) + "\non " + peak_day_str,
               xy=(mdates.date2num(peak_day), y_max), xycoords='data',
               xytext=(mdates.date2num(peak_day), y_max*1.2), textcoords='data',
               arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),
               bbox=props
               )
 
-  ax.grid(b=True, which='major', ls='-')
-  plt.legend(loc=1, bbox_to_anchor=(1, 0.9))
+  plt.legend([
+      'Data on positives',
+      'Data on removed',
+      'Susceptible',
+      'Infected',
+      'Removed'
+    ],
+    loc=1, bbox_to_anchor=(1, 0.9))
 
-  plt.savefig("plots/SIR_covid19_" + country.replace(" ", "") + ".png")
-  plt.show()
+  plt.savefig("plots/SIR_covid19_" + country.replace(" ", "") + "_EN.png")
+
+  annotation.remove() 
+
+  ax.set_ylabel('Numero di persone')
+  annotation = ax.annotate("PICCO EPIDEMICO\nInfetti = " + str(int(y_max)) + "\nil " + peak_day_str,
+              xy=(mdates.date2num(peak_day), y_max), xycoords='data',
+              xytext=(mdates.date2num(peak_day), y_max*1.2), textcoords='data',
+              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),
+              bbox=props
+              )
+
+  plt.legend([
+      'Dati sui positivi',
+      'Dati sui rimossi',
+      'Suscettibili',
+      'Infetti',
+      'Rimossi'
+    ],
+    loc=1, bbox_to_anchor=(1, 0.9))
+  plt.savefig("plots/SIR_covid19_" + country.replace(" ", "") + "_IT.png")
