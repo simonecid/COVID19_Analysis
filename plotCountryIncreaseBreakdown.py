@@ -31,9 +31,9 @@ for index, df_country in enumerate(df_countries):
   df_country_selected["new_confirmed"] = df_country_selected["confirmed"].diff()
   df_country_selected["new_recovered"] = df_country_selected["recovered"].diff()
   df_country_selected["new_deaths"] = df_country_selected["deaths"].diff()
-  ax_country.bar(df_country_selected.date[1:], df_country_selected["new_confirmed"][1:])
-  ax_country.bar(df_country_selected.date[1:], -df_country_selected["new_recovered"][1:] )
-  ax_country.bar(df_country_selected.date[1:], -df_country_selected["new_deaths"][1:], bottom=(-df_country_selected["new_recovered"][1:]))
+  ax_country.bar(df_country_selected.date[1:], df_country_selected["new_confirmed"][1:], color="tab:orange")
+  ax_country.bar(df_country_selected.date[1:], -df_country_selected["new_recovered"][1:], color="tab:green" )
+  ax_country.bar(df_country_selected.date[1:], -df_country_selected["new_deaths"][1:], bottom=(-df_country_selected["new_recovered"][1:]), color="tab:red")
   
   ax_country.xaxis_date()
   ax_country.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
