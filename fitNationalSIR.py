@@ -99,102 +99,80 @@ class SIR:
 
 # ---------- Load data from csv ----------
 
-# country = "United Kingdom" # 15/04
-country = "Switzerland" #04-05/04
+countries = ["Italy", "France", "United Kingdom", "China"]
+day_offsets = [44, 55, 54, 0]
+x0s = [100e3, 200e3, 50e3, 100e3]
+nday_prediction = 140
 
-df = getJohnHopkinsCOVIDData([country])[0]
-# df = pd.concat([df[45:50], df[60:]])
-# df = df[50:]
-df = pd.concat([df[40:65], df[66:]])
-# df = df[52:]
-infected = np.array(df["active"])
-removed = np.array(df['recovered'] + df['deaths'])
-# import pdb ; pdb.set_trace()
-start_day = df.iloc[0]["date"]
-days = np.array((df["date"] - start_day)/np.timedelta64(1, "D"))
-nday_prediction = 60
+df_countries = getJohnHopkinsCOVIDData(countries)
 
-# infected[50:60] = 0
-# removed[50:60] = 0
+for index, (df, country, day_offset, x0) in enumerate(zip(df_countries, countries, day_offsets, x0s)):
+  df = df[day_offset:]
+  
+  infected = np.array(df["active"])
+  removed = np.array(df['recovered'] + df['deaths'])
+  start_day = df.iloc[0]["date"]
+  days = np.array((df["date"] - start_day)/np.timedelta64(1, "D"))
+  x0 = np.array(x0)
 
-# infected = np.append(infected[30:50], infected[60:])
-# removed = np.append(removed[30:50], removed[60:])
-# days = np.append(days[30:50] - days[30], days[60:] - days[30])
+  sir = SIR(infected=infected, removed=removed, days=days)
+  sir.fit()
 
-# infected = infected[40:]
-# removed = removed[40:]
-# days = days[40:] - days[40]
-x0 = np.array([50e3])
+  N = sir.N
+  popt = sir.popt
+  pcov = sir.pcov
+  BRN = sir.BRN
+  BRN_err = sir.BRN_err
+  red_chi2 = sir.red_chi2
 
-sir = SIR(infected=infected, removed=removed, days=days)
-sir.fit()
-
-N = sir.N
-popt = sir.popt
-pcov = sir.pcov
-BRN = sir.BRN
-BRN_err = sir.BRN_err
-red_chi2 = sir.red_chi2
-
-textstr = '\n'.join((
-    r'MODEL PARAMETERS:  ',
-    r'$N=%.f$' % (N),
-    r'$\beta=%.3f \pm %.3f$' % (popt[0], np.sqrt(pcov[0][0])),
-    r'$\gamma=%.3f \pm %.3f$' % (popt[1], np.sqrt(pcov[1][1])),
-    r'$R_0=%.2f \pm %.2f$' %  (BRN, BRN_err),
-    r'$\chi_{red}^2=%.3f$' % (red_chi2)))
+  textstr = '\n'.join((
+      r'MODEL PARAMETERS:  ',
+      r'$N=%.f$' % (N),
+      r'$\beta=%.3f \pm %.3f$' % (popt[0], np.sqrt(pcov[0][0])),
+      r'$\gamma=%.3f \pm %.3f$' % (popt[1], np.sqrt(pcov[1][1])),
+      r'$R_0=%.2f \pm %.2f$' %  (BRN, BRN_err),
+      r'$\chi_{red}^2=%.3f$' % (red_chi2)))
 
 
-x_max, y_max = sir.find_epidemic_peak(nday_prediction)
+  x_max, y_max = sir.find_epidemic_peak(nday_prediction)
 
-peak_day = start_day + dt.timedelta(days = int(x_max)+1)
-peak_day_str = peak_day.strftime('%d-%m-%Y')
+  peak_day = start_day + dt.timedelta(days = int(x_max)+1)
+  peak_day_str = peak_day.strftime('%d-%m-%Y')
 
-# ---------- Plot results ----------
-fig = plt.figure(facecolor='w')
-ax = fig.add_subplot(111, axisbelow=True)
+  # ---------- Plot results ----------
+  fig = plt.figure(facecolor='w')
+  ax = fig.add_subplot(111, axisbelow=True)
 
+  t = np.arange(start_day, start_day+dt.timedelta(days=nday_prediction), dtype='datetime64[D]')
 
-# 
-# t = [start_day + dt.timedelta(days=ndays) for ndays in range(0, 140)]
+  plt.xticks(rotation=90)
+  ax.xaxis_date()
+  ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
+  ax.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
 
-t = np.arange(start_day, start_day+dt.timedelta(days=nday_prediction), dtype='datetime64[D]')
+  ax.plot(df["date"], infected, 'ro', label='Data on positives')
+  ax.plot(df["date"], removed, 'gx', label='Data on removed')
+  ax.plot(t, sir.S, 'b', alpha=0.5, lw=2, label='Susceptible')
+  ax.plot(t, sir.I, 'r', alpha=0.5, lw=2, label='Infected')
+  ax.plot(t, sir.R, 'g', alpha=0.5, lw=2, label='Removed')
 
+  ax.set_title('COVID-19 - ' + country)
+  ax.set_xlabel('Number of days')
+  ax.set_ylabel('Number of people')
 
-plt.xticks(rotation=90)
-ax.xaxis_date()
-ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
-ax.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
-# import pdb ; pdb.set_trace()
+  props = dict(boxstyle='round', edgecolor='0.7', facecolor='white', alpha=0.7)
+  ax.text(0.676, 0.5, textstr, transform=ax.transAxes, fontsize=10,
+          verticalalignment='top', bbox=props)
 
-ax.plot(df["date"], infected, 'ro', label='Data on positives')
-ax.plot(df["date"], removed, 'gx', label='Data on removed')
-ax.plot(t, sir.S, 'b', alpha=0.5, lw=2, label='Susceptible')
-# ax.plot(t, np.zeros(140), 'b', alpha=0.5, lw=2, label='Susceptible')
-ax.plot(t, sir.I, 'r', alpha=0.5, lw=2, label='Infected')
-# ax.plot(t, np.zeros(140), 'r', alpha=0.5, lw=2, label='Infected')
-ax.plot(t, sir.R, 'g', alpha=0.5, lw=2, label='Removed')
-# ax.plot(t, np.zeros(140), 'g', alpha=0.5, lw=2, label='Removed')
+  ax.annotate("EPIDEMIC PEAK\nInfected = " + str(int(y_max)) + "\non " + peak_day_str,
+              xy=(mdates.date2num(peak_day), y_max), xycoords='data',
+              xytext=(mdates.date2num(peak_day), y_max*1.2), textcoords='data',
+              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),
+              bbox=props
+              )
 
-ax.set_title('COVID-19 - ' + country)
-ax.set_xlabel('Number of days')
-ax.set_ylabel('Number of people')
+  ax.grid(b=True, which='major', ls='-')
+  plt.legend(loc=1, bbox_to_anchor=(1, 0.9))
 
-props = dict(boxstyle='round', edgecolor='0.7', facecolor='white', alpha=0.7)
-ax.text(0.676, 0.5, textstr, transform=ax.transAxes, fontsize=10,
-        verticalalignment='top', bbox=props)
-
-ax.annotate("EPIDEMIC PEAK\nInfected = " + str(int(y_max)) + "\non " + peak_day_str,
-            xy=(mdates.date2num(peak_day), y_max), xycoords='data',
-            xytext=(mdates.date2num(peak_day), y_max*1.2), textcoords='data',
-            arrowprops=dict(arrowstyle="->", connectionstyle="arc3"),
-            bbox=props
-            )
-
-ax.grid(b=True, which='major', ls='-')
-plt.legend(loc=1, bbox_to_anchor=(1, 0.9))
-
-# plt.tight_layout()
-# 
-plt.savefig("SIR_covid19_" + country.replace(" ", "") + ".png")
-plt.show()
+  plt.savefig("plots/SIR_covid19_" + country.replace(" ", "") + ".png")
+  plt.show()
