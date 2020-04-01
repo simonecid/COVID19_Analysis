@@ -43,6 +43,9 @@ jobs:
     - name: Build daily breakdowns
       run: |
         python plotCountryIncreaseBreakdown.py
+    - name: Run SIR fits
+      run: |
+        python fitNationalSIR.py
     
     - name: Commit files
       run: |
