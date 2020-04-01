@@ -6,11 +6,21 @@ Estrae automaticamente dati del COVID19 dal repository ufficiale della [Protezio
 
 [I grafici piu' recenti sono disponibili sulla wiki; si aggiorna automaticamente ogni ora.](https://github.com/simonecid/COVID19_Analysis/wiki)
 
+Vorresti vedere qualcosa di interessante in un grafico? Scrivi a:
+
+smnbologna [at] gmail [dot] com
+
 # COVID 19 Plotting tools
 
 Automatically pulls COVID19 data from the official [Italian](https://github.com/pcm-dpc/COVID-19) and [John Hopkins](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data) repository and plots it.
 
 [Latest plots are available on the Wiki; updates hourly.](https://github.com/simonecid/COVID19_Analysis/wiki)
+
+Is there anything interesting you would like to see in a chart?
+Contact me at:
+
+smnbologna [at] gmail [dot] com
+
 
 ## Usage
 
