@@ -100,11 +100,8 @@ class SIR:
 # ---------- Load data from csv ----------
 
 countries = ["Italy", "France", "United Kingdom", "China"]
-fit_ndays = [10, 20, 10, 10]
+fit_ndays = [10, 20, 10, 40]
 x0s = [100e3, 50e3, 100e3, 100e3]
-# countries = ["Italy"]
-# fit_ndays = [14,]
-# x0s = [100e3]
 nday_prediction = 140
 
 df_countries = getJohnHopkinsCOVIDData(countries)
