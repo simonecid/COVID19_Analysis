@@ -100,14 +100,17 @@ class SIR:
 # ---------- Load data from csv ----------
 
 countries = ["Italy", "France", "United Kingdom", "China"]
-day_offsets = [44, 55, 54, 0]
-x0s = [100e3, 200e3, 50e3, 100e3]
+fit_ndays = [10, 20, 10, 10]
+x0s = [100e3, 50e3, 100e3, 100e3]
+# countries = ["Italy"]
+# fit_ndays = [14,]
+# x0s = [100e3]
 nday_prediction = 140
 
 df_countries = getJohnHopkinsCOVIDData(countries)
 
-for index, (df, country, day_offset, x0) in enumerate(zip(df_countries, countries, day_offsets, x0s)):
-  df = df[day_offset:]
+for index, (df, country, ndays, x0) in enumerate(zip(df_countries, countries, fit_ndays, x0s)):
+  df = df[-ndays:]
   
   infected = np.array(df["active"])
   removed = np.array(df['recovered'] + df['deaths'])
