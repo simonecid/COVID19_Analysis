@@ -100,7 +100,7 @@ class SIR:
 # ---------- Load data from csv ----------
 
 countries = ["Italy", "France", "United Kingdom", "China"]
-fit_ndays = [10, 20, 10, 40]
+fit_ndays = [15, 20, 10, 40]
 x0s = [100e3, 50e3, 100e3, 100e3]
 nday_prediction = 140
 
